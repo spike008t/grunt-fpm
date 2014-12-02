@@ -32,20 +32,24 @@ module.exports = function(grunt) {
     fpm: {
       default_options: {
         options: {
+          debug: true,
+          name: "test-package",
+          output: '/tmp/',
         },
         files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
+          '/tmp/src': ['test/fixtures/src/*'],
+          '/tmp/test2/test2': ['test/fixtures/src/test2']
         },
       },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!',
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
-      },
+      // custom_options: {
+      //   options: {
+      //     separator: ': ',
+      //     punctuation: ' !!!',
+      //   },
+      //   files: {
+      //     'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
+      //   },
+      // },
     },
 
     // Unit tests.
