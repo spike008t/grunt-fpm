@@ -33,6 +33,7 @@ module.exports = function(grunt) {
   var path = require('path');
   var tmp = require('tmp');
   var spawn = require('child_process').spawn;
+  var FPM = require('../lib/fpm');
 
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
@@ -124,6 +125,36 @@ module.exports = function(grunt) {
       grunt.log.writeln('All created.');
 
 
+      var builder = new FPM();
+
+      builder.setType(options.type);
+      builder.setDebug(options.debug);
+      builder.setVersion(options.version);
+      builder.setPrefix(options.prefix);
+      builder.setName(options.name);
+      builder.setSource(_prefixPath);
+      builder.setArch(options.arch);
+
+      var loggerCallback = function(stderr, stdout) {
+        if (stderr) {
+          grunt.log.writeln('STDERR: ' + stderr);
+        }
+
+        if (stdout) {
+          grunt.log.writeln('STDOUT: ' + stdout);
+        }
+      };
+
+      var onEnd = function(code) {
+        grunt.log.writeln('End process with code: ' + code);
+        cleanupCallback();
+        done();
+      };
+
+      builder.build(onEnd, loggerCallback);
+
+
+/*
 
       // generate command line
       var args = [];
@@ -151,8 +182,6 @@ module.exports = function(grunt) {
       grunt.log.writeln("Execute command : fpm " + args.join(" "));
 
 
-
-
       var fpmBuilder = spawn('fpm', args);
 
       fpmBuilder.stdout.on('data', function(data) {
@@ -168,6 +197,8 @@ module.exports = function(grunt) {
         cleanupCallback();
         done();
       });
+
+*/
 
 
     });
