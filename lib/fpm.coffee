@@ -17,8 +17,14 @@ class fpm
       postInstall: null
     }
     @arch = 'all'
+    @outputPath = "./"
 
   # getter & setters
+  setOutputPath: (@outputPath) ->
+    this
+
+  getOutputPath: ->
+    @outputPath
 
   setArch: (@arch) ->
     this
@@ -120,6 +126,7 @@ class fpm
     args.push '-n', @name
     args.push '-a', @arch
     args.push '-v', @version
+    args.push '-p', @outputPath
     args.push '--description', @description if @description
     args.push '--before-install', @scripts.preInstall if @scripts.preInstall
     args.push '--after-install', @scripts.postInstall if @scripts.postInstall
