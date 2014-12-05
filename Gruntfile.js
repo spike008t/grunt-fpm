@@ -35,7 +35,7 @@ module.exports = function(grunt) {
           debug: true,
           name: "test-package",
           output: '/tmp/',
-          prefix: '/',
+          prefix: '/'
         },
         files: {
           '/tmp/src': ['test/fixtures/src/*'],

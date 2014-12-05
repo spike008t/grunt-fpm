@@ -55,7 +55,8 @@ module.exports = function(grunt) {
       arch: "all",
       beforeInstall: null,
       afterInstall: null,
-      name: 'fpm'
+      name: 'fpm',
+      output: './'
     });
 
     var _this = this;
@@ -134,6 +135,7 @@ module.exports = function(grunt) {
       builder.setName(options.name);
       builder.setSource(_prefixPath);
       builder.setArch(options.arch);
+      builder.setOutputPath(options.output);
 
       var loggerCallback = function(stderr, stdout) {
         if (stderr) {
@@ -152,54 +154,6 @@ module.exports = function(grunt) {
       };
 
       builder.build(onEnd, loggerCallback);
-
-
-/*
-
-      // generate command line
-      var args = [];
-
-      if (options.debug) {
-        args.push("--debug");
-      }
-
-      args.push("--rpm-os", options.os);
-
-      args.push("-s", "dir");
-
-      args.push("-t", options.type);
-
-      args.push("-n", options.name);
-
-      args.push("-v", options.version);
-
-      if (options.prefix) {
-        args.push("--prefix", options.prefix);
-      }
-
-      args.push(_prefixPath);
-
-      grunt.log.writeln("Execute command : fpm " + args.join(" "));
-
-
-      var fpmBuilder = spawn('fpm', args);
-
-      fpmBuilder.stdout.on('data', function(data) {
-        grunt.log.writeln('STDOUT: ' + data);
-      });
-
-      fpmBuilder.stderr.on('data', function(data) {
-        grunt.log.warn("STDERR: " + data);
-      });
-
-      fpmBuilder.on('close', function(code) {
-        console.log("End process with code: " + code);
-        cleanupCallback();
-        done();
-      });
-
-*/
-
 
     });
 
