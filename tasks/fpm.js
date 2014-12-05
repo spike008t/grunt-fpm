@@ -111,7 +111,7 @@ module.exports = function(grunt) {
           grunt.log.writeln("Copy Array " + src + " -> " + outputPath);
 
           src.map(function (filepath) {
-            grunt.file.copy(filepath, outputPath);
+            grunt.file.copy(filepath, path.join(outputPath, path.basename(filepath)));
           });
 
         } else {
